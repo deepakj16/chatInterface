@@ -37,15 +37,9 @@ def clear_submit():
 
     """
     st.session_state["submit"] = False
-    # st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]          
     if "CurrentPage" in st.session_state: 
         del st.session_state["CurrentPage"]
-    # # Delete all the items in Session state
-    # for key in st.session_state.keys():
-    #     del st.session_state[key]
-
-
-# @st.cache_data(ttl="2h")
+   
 def load_data(uploaded_file):
     try:
         ext = os.path.splitext(uploaded_file.name)[1][1:].lower()
@@ -82,7 +76,6 @@ def main():
     if uploaded_file:    
         c = load_data(uploaded_file)
 
-        #openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
         if "messages" not in st.session_state or st.button("Clear conversation history"):
             st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
