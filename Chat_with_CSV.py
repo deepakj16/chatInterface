@@ -12,10 +12,6 @@ from langchain.callbacks import StreamlitCallbackHandler
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 
-# Load the config file
-# with open('config.json') as f:
-#     config = json.load(f)
-
 #Load environment variables
 load_dotenv("credentials.env")
 
@@ -83,13 +79,8 @@ def main():
         on_change=clear_submit,
     )
 
-    # if not uploaded_file:
-    #     st.warning(
-    #         "This app uses LangChain's `PythonAstREPLTool` which is vulnerable to arbitrary code execution. Please use caution in deploying and sharing this app."
-    #     )
-
     if uploaded_file:    
-        df = load_data(uploaded_file)
+        c = load_data(uploaded_file)
 
         #openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
         if "messages" not in st.session_state or st.button("Clear conversation history"):
