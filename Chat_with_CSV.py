@@ -74,7 +74,7 @@ def main():
     )
 
     if uploaded_file:    
-        c = load_data(uploaded_file)
+        df = load_data(uploaded_file)
 
         if "messages" not in st.session_state or st.button("Clear conversation history"):
             st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
