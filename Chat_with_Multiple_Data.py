@@ -37,9 +37,6 @@ from IPython.display import Markdown, HTML, display
 
 st.set_page_config(layout="wide")
 
-#with open('C:\\Users\\nileshjoshi\\git\\TechExcelAOAI-workshop\\src\\ContosoSuitesDashboard\\config.json') as f:
-# with open('config.json') as f:
-#     config = json.load(f)
 #Load environment variables
 load_dotenv("credentials.env")
 
@@ -61,17 +58,11 @@ azure_cosmos_db = os.environ["AZURE_COSMOSDB_NAME"]
 azure_cosmos_container = os.environ["AZURE_COSMOSDB_CONTAINER"]
 azure_cosmos_connection = os.environ["AZURE_COSMOSDB_CONNECTION_STRING"]
 
-# os.environ["AZURE_SEARCH_ENDPOINT"] = os.environ["COVID_AZURE_SEARCH_ENDPOINT"]
-# os.environ["AZURE_SEARCH_KEY"] = os.environ["COVID_AZURE_SEARCH_KEY"]
-# os.environ["AZURE_SEARCH_API_VERSION"] = os.environ["AZURE_SEARCH_API_VERSION"]
 azure_search_covid_index = os.environ["AZURE_SEARCH_COVID_INDEX"]
 bing_Search_url = os.environ["BING_SEARCH_URL"]
 bing_subscription_key = os.environ["BING_SUBSCRIPTION_KEY"]
 cog_services_name = os.environ["COG_SERVICES_NAME"]
 cog_services_key = os.environ["COG_SERVICES_KEY"]
-# os.environ["FORM_RECOGNIZER_KEY"]
-# os.environ["FORM_RECOGNIZER_ENDPOINT"]
-
 
 def clear_submit():
     """
@@ -136,9 +127,7 @@ def main():
     col1, col2, col3, col4 = st.columns(4)    
     with col3:
         loggedInUser = st.selectbox("Change Login:", ("Guest", "Jennifer", "Steve"), index=0, placeholder="Select user...")       
-    # with st.popover("Login"):
-    #     st.markdown("Please select the user you want to login as.")
-    #     loggedInUser = st.selectbox("User Login:", ("Guest", "Jennifer", "Steve"), index=0, placeholder="Select user...")
+
     with col2:
         st.write ("Logged in as: <span style='color:blue'>", loggedInUser, "</span>", unsafe_allow_html=True)    
     tooltip_text = """Examples:  \n @docsearch how many covid cases globally?  \n @docsearch Explain Variants of SARS-Cov-2
@@ -156,16 +145,7 @@ def main():
         a= None
 
     st.divider()  
-    # with col4:
-    #     st.write("")
-    #     st.write("")
-    # if "messages" not in st.session_state or st.sidebar.button("Clear conversation history"):
-    #     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
-
-    # # Initialize chat history
-    # if "messages" not in st.session_state:
-    #     st.session_state["messages"] = []
-
+   
     # Display chat messages from history on app rerun
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -200,13 +180,7 @@ def main():
                             k=10, similarity_k=4, reranker_th=1,
                             sas_token=blob_sas_token, name="docsearch",
                             verbose=False) #callback_manager=cb_manager
-        #vector_only_indexes = ["cogsrch-index-books-vector"]
-        # book_search = DocSearchTool(llm=llm, vector_only_indexes = vector_only_indexes,
-        #                    k=10, similarity_k=10, reranker_th=1,
-        #                    sas_token=os.environ['BLOB_SAS_TOKEN'],
-        #                    callback_manager=cb_manager, return_direct=True,
-        #                    name="@booksearch",
-        #                    description="useful when the questions includes the term: @booksearch.\n")
+     
         www_search = BingSearchAgent(llm=llm, k=5,verbose=False)
         sql_search = SQLSearchAgent(llm=llm, k=10,verbose=False)
         chatgpt_search = ChatGPTTool(llm=llm)     #callback_manager=cb_manager
