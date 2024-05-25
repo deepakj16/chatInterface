@@ -184,7 +184,6 @@ def main():
         www_search = BingSearchAgent(llm=llm, k=5,verbose=False)
         sql_search = SQLSearchAgent(llm=llm, k=10,verbose=False)
         chatgpt_search = ChatGPTTool(llm=llm)     #callback_manager=cb_manager
-        #csv_search = CSVTabularTool(path="src\data\BikeStores_Staff.csv", llm=llm, callback_manager=cb_manager, return_direct=True)
         tools = [www_search, sql_search, doc_search, chatgpt_search] #csv_search,  book_search]
 
         agent = create_openai_tools_agent(llm, tools, CUSTOM_CHATBOT_PROMPT)
